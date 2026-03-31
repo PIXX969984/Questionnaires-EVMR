@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questionnaire d'évaluation — DPPC</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  :root {
+    --cream: #f7f3ee;
+    --warm-white: #fdfaf7;
+    --teal: #2d6e6e;
+    --teal-light: #3d8a8a;
+    --teal-pale: #e8f4f4;
+    --rust: #c0543a;
+    --rust-pale: #fdf0ec;
+    --charcoal: #2c2c2c;
+    --gray: #6b7280;
+    --gray-light: #e5e0d8;
+    --gold: #c8a96e;
+    --green: #3d7a5a;
+    --green-pale: #eaf3ee;
+    --orange-pale: #fef3e8;
+    --orange: #d4812a;
+    --shadow: 0 2px 20px rgba(0,0,0,0.06);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.10);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--teal);
+    padding: 28px 24px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 0%, rgba(255,255,255,0.07) 0%, transparent 60%);
+  }
+  .header-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 18px;
+  }
+  .logo-placeholder {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(18px, 4vw, 26px);
+    color: #fff;
+    font-weight: 400;
+    max-width: 540px;
+    margin: 0 auto 6px;
+  }
+  .header-meta {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.5px;
+  }
+
+  /* INTRO BOX */
+  .intro-box {
+    background: var(--warm-white);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin: 24px auto;
+    max-width: 700px;
+    font-size: 13.5px;
+    color: #555;
+    line-height: 1.7;
+    box-shadow: var(--shadow);
+  }
+  .intro-box p + p { margin-top: 10px; }
+
+  /* MAIN CONTAINER */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    background: var(--warm-white);
+    border-radius: 99px;
+    height: 6px;
+    margin: 0 auto 28px;
+    max-width: 700px;
+    overflow: hidden;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--gray);
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* SECTION */
+  .section {
+    background: var(--warm-white);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .section:hover { box-shadow: var(--shadow-hover); }
+
+  .section-header {
+    background: var(--teal);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-header.amber { background: #8a5c2a; }
+  .section-header.rose { background: #7a3535; }
+  .section-header.green { background: var(--green); }
+
+  .section-num {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .section-body { padding: 20px; }
+
+  /* FIELD */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label.field-label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+  }
+  label.field-label span.req { color: var(--rust); margin-left: 3px; }
+
+  input[type="text"], input[type="date"], textarea, select {
+    width: 100%;
+    border: 1.5px solid var(--gray-light);
+    border-radius: 8px;
+    padding: 10px 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--charcoal);
+    background: var(--cream);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  input[type="text"]:focus, input[type="date"]:focus, textarea:focus, select:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(45,110,110,0.1);
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+
+  /* RADIO / CHECKBOX ROW */
+  .radio-group, .check-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .radio-option, .check-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    padding: 9px 12px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gray-light);
+    background: var(--cream);
+    transition: all 0.15s;
+    font-size: 13.5px;
+  }
+  .radio-option:hover, .check-option:hover {
+    border-color: var(--teal);
+    background: var(--teal-pale);
+  }
+  .radio-option input, .check-option input {
+    width: auto;
+    accent-color: var(--teal);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .radio-option.selected, .check-option.selected {
+    border-color: var(--teal);
+    background: var(--teal-pale);
+  }
+
+  /* ACE TABLE */
+  .ace-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .ace-table th {
+    background: var(--teal-pale);
+    color: var(--teal);
+    font-weight: 600;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #d0e6e6;
+  }
+  .ace-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #ede9e2;
+    vertical-align: middle;
+  }
+  .ace-table tr:last-child td { border-bottom: none; }
+  .ace-table tr:hover td { background: #fafaf8; }
+  .ace-bloc-header td {
+    background: var(--cream);
+    color: var(--teal);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .ace-yes-no {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .ace-yes-no label {
+    display: flex; align-items: center; gap: 4px;
+    cursor: pointer; font-size: 12.5px; font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1.5px solid var(--gray-light);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .ace-yes-no input { display: none; }
+  .ace-yes-no label.oui { color: var(--rust); border-color: #e8c4bb; }
+  .ace-yes-no label.non { color: var(--green); border-color: #c4ddd0; }
+  .ace-yes-no label.oui.active { background: #fbeae7; border-color: var(--rust); }
+  .ace-yes-no label.non.active { background: var(--green-pale); border-color: var(--green); }
+
+  /* LIKERT */
+  .likert-table { width: 100%; border-collapse: collapse; }
+  .likert-table th {
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--teal);
+    padding: 8px 4px;
+    background: var(--teal-pale);
+    border-bottom: 2px solid #d0e6e6;
+  }
+  .likert-table th.item-col { text-align: left; width: 52%; }
+  .likert-table td {
+    padding: 10px 4px;
+    border-bottom: 1px solid #ede9e2;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .likert-table td.item-text {
+    text-align: left;
+    font-size: 13px;
+    padding: 10px 12px;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+  .likert-table tr:hover td { background: #fafaf8; }
+  .likert-table input[type="radio"] {
+    width: auto;
+    accent-color: var(--teal);
+    width: 18px; height: 18px;
+    cursor: pointer;
+  }
+  .likert-label-row th { background: transparent; border: none; }
+  .likert-label-row th { font-size: 10px; color: var(--gray); font-weight: 400; padding: 4px 2px 8px; }
+
+  /* AXE BADGE */
+  .axe-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+  .axe-cog { background: #e8f0fb; color: #3a5fa0; }
+  .axe-emo { background: var(--rust-pale); color: var(--rust); }
+  .axe-soc { background: var(--green-pale); color: var(--green); }
+
+  .likert-section-header td {
+    background: var(--cream);
+    padding: 8px 12px 4px;
+    border-bottom: none;
+  }
+
+  /* SUBMIT BUTTON */
+  .submit-wrap {
+    text-align: center;
+    margin-top: 32px;
+  }
+  .btn-submit {
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 48px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(45,110,110,0.25);
+  }
+  .btn-submit:hover {
+    background: var(--teal-light);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(45,110,110,0.3);
+  }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+  }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 28px;
+  }
+  .success-screen h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--teal);
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+  .success-screen p { color: var(--gray); font-size: 14px; }
+
+  /* CONFIG PANEL */
+  .config-panel {
+    background: var(--warm-white);
+    border: 2px dashed var(--gold);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    font-size: 13px;
+  }
+  .config-panel h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 400;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .config-panel .field-label { color: #555; font-size: 12.5px; }
+  .config-panel input[type="text"] { font-size: 13px; padding: 8px 11px; }
+  .config-note { font-size: 11.5px; color: var(--gray); margin-top: 6px; font-style: italic; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .ace-table, .ace-table tbody, .ace-table tr, .ace-table td { display: block; }
+    .ace-table thead { display: none; }
+    .ace-table td { padding: 6px 12px; }
+    .ace-yes-no { margin-top: 6px; }
+    .likert-table th:not(.item-col) { font-size: 9px; padding: 6px 2px; }
+    .likert-table td.item-text { font-size: 12px; }
+    .btn-submit { width: 100%; padding: 15px; }
+  }
+
+  .field-note {
+    font-size: 12px; color: var(--gray); font-style: italic; margin-top: 5px;
+  }
+
+  .alert-info {
+    background: var(--teal-pale);
+    border-left: 3px solid var(--teal);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+
+  .divider { border: none; border-top: 1.5px solid var(--gray-light); margin: 18px 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logos">
+    <div class="logo-placeholder">Clinique Axium</div>
+    <div class="logo-placeholder">Résilience</div>
+  </div>
+  <h1>Questionnaire d'évaluation<br>expérience de vie, milieu de vie et ressources</h1>
+  <div class="header-meta">Contexte de soin : DPPC</div>
+</div>
+
+<div class="container">
+
+  <!-- INTRO -->
+  <div class="intro-box">
+    <p>Ce questionnaire a pour objectif de mieux comprendre votre situation globale : votre contexte de vie, vos éventuelles expériences difficiles passées, ainsi que vos ressources personnelles. Il ne s'agit pas de vous juger, mais d'adapter au mieux votre accompagnement.</p>
+    <p>Vous êtes entièrement libre de ne pas répondre à une question ou d'interrompre le remplissage à tout moment, sans avoir à vous justifier.</p>
+  </div>
+
+  <!-- CONFIG PANEL (praticien only) -->
+  <div class="config-panel" id="configPanel">
+    <h3>⚙️ Configuration (praticien uniquement)</h3>
+    <div class="field">
+      <label class="field-label">Votre adresse email pour recevoir les réponses <span style="color:var(--rust)">*</span></label>
+      <input type="text" id="praticienEmail" placeholder="ex : docteur@clinique-axium.fr" value="">
+      <div class="config-note">Cette adresse sera utilisée comme destinataire du récapitulatif. Renseignez-la avant d'envoyer le lien au patient. Le panel sera masqué pour les patients.</div>
+    </div>
+    <div style="margin-top:10px;">
+      <button onclick="saveConfig()" style="background:var(--teal);color:#fff;border:none;border-radius:6px;padding:8px 18px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;">Enregistrer et masquer</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">Progression : 0 %</div>
+
+  <form id="mainForm">
+
+    <!-- ===== SECTION 0 : IDENTIFIANT ===== -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">0</div>
+        <div class="section-title">Identification du patient</div>
+      </div>
+      <div class="section-body">
+        <div class="field">
+          <label class="field-label">Identifiant patient <span class="req">*</span></label>
+          <input type="text" id="patientId" name="patientId" placeholder="ex : P-2026-042" required>
+          <div class="field-note">Cet identifiant vous a été communiqué par votre praticien.</div>
+        </div>
+        <div class="field">
+          <label class="field-label">Date de passation</label>
+          <input type="date" id="datePassation" name="datePassation">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 1 : SYMPTÔMES ===== -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-num">1</div>
+        <div class="section-title">Symptômes et diagnostic</div>
+      </div>
+      <div class="section-body">
+
+        <div class="field">
+          <label class="field-label">1. Depuis combien de temps vos symptômes ont-ils commencé ? <span class="req">*</span></label>
+          <div class="radio-group" id="q1">
+            <label class="radio-option"><input type="radio" name="q1" value="Moins de 1 an"> Moins de 1 an</label>
+            <label class="radio-option"><input type="radio" name="q1" value="1 à 5 ans"> 1 à 5 ans</label>
+            <label class="radio-option"><input type="radio" name="q1" value="Plus de 5 ans"> Plus de 5 ans</label>
+            <label class="radio-option"><input type="radio" name="q1" value="Plus de 10 ans"> Plus de 10 ans</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">2. Avez-vous déjà reçu un ou plusieurs diagnostics pour ce problème ? <span class="req">*</span></label>
+          <div class="radio-group" id="q2type">
+            <label class="radio-option"><input type="radio" name="q2type" value="Aucun diagnostic"> Non, aucun diagnostic évoqué</label>
+            <label class="radio-option"><input type="radio" name="q2type" value="Un diagnostic"> Oui, un diagnostic</label>
+            <label class="radio-option"><input type="radio" name="q2type" value="Plusieurs diagnostics"> Oui, plusieurs diagnostics différents au fil du temps</label>
+          </div>
+          <div id="q2detail" style="display:none; margin-top:10px;">
+            <input type="text" id="q2text" name="q2text" placeholder="Précisez le ou les diagnostics...">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">3. Que faites-vous actuellement pour limiter votre douleur ?</label>
+          <textarea name="q3" id="q3" placeholder="Décrivez les moyens que vous utilisez (médicaments, activités, repos...)"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Informations importantes à signaler (informations utiles pour le praticien)</label>
+          <textarea name="infoImportantes" id="infoImportantes" placeholder="Ex : sortie récente d'une intervention, allergie, situation particulière..."></textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== SECTION 2 : DÉTERMINANTS DE SANTÉ ===== -->
+    <div class="section">
+      <div class="section-header amber">
+        <div class="section-num">2</div>
+        <div class="section-title">Déterminants de santé — Score EPICES</div>
+      </div>
+      <div class="section-body">
+        <div class="alert-info">
+          Le score EPICES évalue la précarité socio-économique via un questionnaire validé. Il sera calculé séparément via le lien ci-dessous.
+        </div>
+        <div class="field">
+          <label class="field-label">Lien vers le calculateur EPICES</label>
+          <a href="https://www.cetaf.fr/score-epices/" target="_blank" style="color:var(--teal);font-weight:500;font-size:13.5px;">→ https://www.cetaf.fr/score-epices/</a>
+        </div>
+        <div class="field">
+          <label class="field-label">Résultat du score EPICES (à saisir après calcul)</label>
+          <input type="text" name="epicesScore" id="epicesScore" placeholder="ex : 42.5">
+        </div>
+        <div class="field">
+          <label class="field-label">Interprétation / commentaire</label>
+          <input type="text" name="epicesInterp" id="epicesInterp" placeholder="ex : Précarité avérée (score > 30)">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 3 : ACE (Enfance) ===== -->
+    <div class="section">
+      <div class="section-header rose">
+        <div class="section-num">3</div>
+        <div class="section-title">Expériences d'adversité précoces (avant 18 ans)</div>
+      </div>
+      <div class="section-body">
+        <div class="alert-info" style="background:var(--rust-pale);border-color:var(--rust);color:#8a3525;">
+          Ces questions portent sur votre enfance et adolescence. Vous êtes libre de ne pas répondre à n'importe quelle question.
+        </div>
+        <table class="ace-table">
+          <thead>
+            <tr>
+              <th>Catégorie</th>
+              <th>Description</th>
+              <th style="text-align:center;white-space:nowrap;">Avant 18 ans</th>
+              <th>Commentaire (optionnel)</th>
+            </tr>
+          </thead>
+          <tbody id="aceTableBody"></tbody>
+        </table>
+        <div style="margin-top:14px;font-size:12.5px;color:var(--gray);">
+          Score ACE calculé automatiquement : <strong id="aceScoreDisplay" style="color:var(--teal);">0 / 13</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 4 : ADVERSITÉ ADULTE ===== -->
+    <div class="section">
+      <div class="section-header rose">
+        <div class="section-num">4</div>
+        <div class="section-title">Événements de vie difficiles (après 18 ans)</div>
+      </div>
+      <div class="section-body">
+        <div class="alert-info" style="background:var(--rust-pale);border-color:var(--rust);color:#8a3525;">
+          Ces questions portent sur des événements potentiellement difficiles survenus à l'âge adulte. Répondez uniquement aux questions avec lesquelles vous vous sentez à l'aise.
+        </div>
+        <table class="ace-table">
+          <thead>
+            <tr>
+              <th>Réf.</th>
+              <th>Type d'événement</th>
+              <th style="text-align:center;white-space:nowrap;">Après 18 ans</th>
+            </tr>
+          </thead>
+          <tbody id="adultTableBody"></tbody>
+        </table>
+        <div style="margin-top:14px;font-size:12.5px;color:var(--gray);">
+          Nombre d'événements cochés : <strong id="adultScoreDisplay" style="color:var(--teal);">0 / 21</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SECTION 5 : CPS ===== -->
+    <div class="section">
+      <div class="section-header green">
+        <div class="section-num">5</div>
+        <div class="section-title">Ressources internes — Compétences psychosociales (CPS)</div>
+      </div>
+      <div class="section-body">
+        <div class="alert-info">
+          Pour chaque affirmation, indiquez dans quelle mesure elle est vraie pour vous.<br>
+          <strong>1 = Pas du tout vrai &nbsp;·&nbsp; 3 = Ni vrai ni faux &nbsp;·&nbsp; 5 = Tout à fait vrai</strong>
+        </div>
+        <table class="likert-table">
+          <thead>
+            <tr>
+              <th class="item-col">Affirmation</th>
+              <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>
+            </tr>
+            <tr class="likert-label-row">
+              <th></th>
+              <th>Pas du tout</th><th>Plutôt non</th><th>Neutre</th><th>Plutôt oui</th><th>Tout à fait</th>
+            </tr>
+          </thead>
+          <tbody id="cpsTableBody"></tbody>
+        </table>
+        <div style="margin-top:14px;font-size:12.5px;color:var(--gray); display:flex; gap:20px; flex-wrap:wrap;">
+          <span>Cognitif : <strong id="cpsCogDisplay" style="color:#3a5fa0;">—</strong></span>
+          <span>Émotionnel : <strong id="cpsEmoDisplay" style="color:var(--rust);">—</strong></span>
+          <span>Social : <strong id="cpsSocDisplay" style="color:var(--green);">—</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-wrap">
+      <button type="button" class="btn-submit" onclick="submitForm()" id="submitBtn">
+        Envoyer mes réponses
+      </button>
+      <div style="margin-top:12px;font-size:12px;color:var(--gray);">Vos réponses sont transmises de façon sécurisée à votre praticien.</div>
+    </div>
+
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✓</div>
+    <h2>Questionnaire envoyé</h2>
+    <p>Merci pour vos réponses. Votre praticien les recevra et en discutera avec vous lors de votre prochaine consultation.</p>
+  </div>
+
+</div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+
+// ======== DONNÉES ========
+
+const aceItems = [
+  { bloc: "Abus", cat: "Abus physique", desc: "Frappée, bousculée ou physiquement agressée par un adulte responsable de soi" },
+  { bloc: "Abus", cat: "Abus émotionnel / psychologique", desc: "Insultée, humiliée, rabaissée ou menacée de manière répétée par un adulte du foyer" },
+  { bloc: "Abus", cat: "Abus sexuel", desc: "Contacts, gestes ou actes à caractère sexuel imposés ou inappropriés" },
+  { bloc: "Négligence", cat: "Négligence physique", desc: "Manque répété de nourriture, de soins, de vêtements, d'hygiène ou de sécurité" },
+  { bloc: "Négligence", cat: "Négligence émotionnelle", desc: "Manque d'affection, d'attention, d'écoute ou de soutien émotionnel" },
+  { bloc: "Dysfonctionnements familiaux", cat: "Violence conjugale au domicile", desc: "Témoin de violences physiques ou de graves menaces entre parents / adultes du foyer" },
+  { bloc: "Dysfonctionnements familiaux", cat: "Addiction dans le foyer", desc: "Vivre avec un parent ayant une consommation problématique d'alcool ou de drogues" },
+  { bloc: "Dysfonctionnements familiaux", cat: "Trouble mental / tentative de suicide d'un proche", desc: "Présence d'un trouble mental sévère, d'une tentative de suicide ou d'un suicide chez un parent" },
+  { bloc: "Dysfonctionnements familiaux", cat: "Séparation, divorce ou perte parentale", desc: "Séparation durable, divorce, abandon ou décès d'au moins un parent / figure parentale" },
+  { bloc: "Dysfonctionnements familiaux", cat: "Incarcération d'un membre du foyer", desc: "Emprisonnement d'un parent ou adulte avec qui l'enfant vivait" },
+  { bloc: "Violence entre pairs", cat: "Harcèlement / violence de pairs", desc: "Victime de harcèlement, menaces ou violences répétées de la part de camarades" },
+  { bloc: "Violence dans la communauté", cat: "Violence communautaire", desc: "Victime ou témoin de violences graves dans le voisinage ou la communauté" },
+  { bloc: "Violence collective", cat: "Conflits armés / violences politiques", desc: "Avoir vécu la guerre, un conflit armé, des persécutions ou des déplacements forcés" },
+];
+
+const adultItems = [
+  { ref: "1", type: "Violence physique", desc: "Agressions physiques graves (frappée, battue, blessée volontairement)" },
+  { ref: "2", type: "Violence physique par proche", desc: "Violence physique répétée au sein du couple ou de la famille" },
+  { ref: "3", type: "Violence sexuelle", desc: "Agression sexuelle / viol" },
+  { ref: "4", type: "Menace armée", desc: "Menacée avec une arme (arme blanche, arme à feu, autre)" },
+  { ref: "5", type: "Accident grave", desc: "Accident grave (route, travail, chute, etc.)" },
+  { ref: "6", type: "Catastrophe", desc: "Exposition directe à une catastrophe (incendie, explosion, catastrophe naturelle)" },
+  { ref: "7", type: "Guerre / conflit", desc: "Exposition à la guerre, à un conflit armé, à des violences collectives" },
+  { ref: "8", type: "Séquestration / enlèvement", desc: "Enlèvement, séquestration, retenue contre sa volonté" },
+  { ref: "9", type: "Emprisonnement traumatisant", desc: "Emprisonnement dans des conditions menaçantes / traumatiques" },
+  { ref: "10", type: "Témoin direct de violence", desc: "Témoin direct d'une agression grave ou d'un acte de violence extrême" },
+  { ref: "11", type: "Témoin de mort violente", desc: "Témoin direct de la mort violente ou du décès brutal de quelqu'un" },
+  { ref: "12", type: "Apprendre un décès brutal", desc: "Apprentissage de la mort brutale d'un proche (conditions traumatiques)" },
+  { ref: "13", type: "Maladie grave", desc: "Diagnostic de maladie grave, potentiellement mortelle, avec menace vitale" },
+  { ref: "14", type: "Handicap soudain", desc: "Survenue d'un handicap majeur après un événement brutal (AVC, trauma, etc.)" },
+  { ref: "15", type: "Violence collective / émeutes", desc: "Exposition directe à des émeutes, attaques, terrorisme, violences collectives" },
+  { ref: "16", type: "Autre événement mettant en jeu la vie", desc: "Tout autre événement mettant sérieusement en danger la vie ou l'intégrité physique" },
+  { ref: "17", type: "Harcèlement répété", desc: "Harcèlement répété (au travail, à l'école, dans le voisinage)" },
+  { ref: "18", type: "Stalking / traque", desc: "Le fait d'être traquée, suivie, espionnée de manière menaçante" },
+  { ref: "19", type: "Négligence grave à l'âge adulte", desc: "Négligence grave, privation de soins / d'aide indispensables par l'entourage" },
+  { ref: "20", type: "Humiliations répétées", desc: "Humiliations répétées, dénigrement systématique, rabaissement public ou privé" },
+  { ref: "21", type: "Autre menace psychologique grave", desc: "Toute autre forme de menace psychologique grave et répétée" },
+];
+
+const cpsItems = [
+  { axe: "COGNITIVE", badge: "cog", label: "Conscience de soi", item: "Je connais bien mes qualités, mes limites et ce qui est important pour moi dans la vie." },
+  { axe: "COGNITIVE", badge: "cog", label: "Maîtrise / contrôle de soi", item: "Quand une situation me met sous tension, je parviens en général à ne pas réagir trop vite." },
+  { axe: "COGNITIVE", badge: "cog", label: "Prise de décision constructive", item: "Avant de prendre une décision importante, je réfléchis aux différentes options et à leurs conséquences." },
+  { axe: "COGNITIVE", badge: "cog", label: "Planification / organisation", item: "Je parviens à organiser mon quotidien (travail, famille, santé, temps pour moi) de manière à ce que cela reste gérable." },
+  { axe: "COGNITIVE", badge: "cog", label: "Flexibilité cognitive", item: "Quand les choses ne se passent pas comme prévu, j'arrive à m'adapter sans trop de difficulté." },
+  { axe: "ÉMOTIONNELLE", badge: "emo", label: "Conscience des émotions / stress", item: "Je repère assez facilement ce que je ressens (émotions, stress) dans les situations de la vie quotidienne." },
+  { axe: "ÉMOTIONNELLE", badge: "emo", label: "Expression des émotions", item: "J'arrive à exprimer ce que je ressens à des personnes en qui j'ai confiance." },
+  { axe: "ÉMOTIONNELLE", badge: "emo", label: "Régulation des émotions", item: "Quand une émotion est très forte chez moi, je trouve des moyens pour qu'elle redescende." },
+  { axe: "ÉMOTIONNELLE", badge: "emo", label: "Régulation du stress / coping", item: "Quand je traverse une période difficile, j'utilise des moyens qui m'aident à mieux supporter le stress." },
+  { axe: "SOCIALE", badge: "soc", label: "Communication constructive", item: "J'arrive à dire ce que je pense et ce dont j'ai besoin de façon claire et respectueuse, tout en écoutant les autres." },
+  { axe: "SOCIALE", badge: "soc", label: "Affirmation de soi / limites", item: "Je sais dire non ou poser mes limites, même si j'ai peur de déranger ou de décevoir." },
+  { axe: "SOCIALE", badge: "soc", label: "Relations constructives / soutien", item: "Je sais m'entourer de personnes avec qui je peux avoir des relations de confiance et de soutien." },
+  { axe: "SOCIALE", badge: "soc", label: "Résolution de conflits", item: "En cas de problème avec quelqu'un (famille, travail, amis), je cherche activement une solution plutôt que d'éviter la situation." },
+  { axe: "SOCIALE", badge: "soc", label: "Demande d'aide", item: "Quand j'ai besoin de soutien, je parviens à demander de l'aide à quelqu'un." },
+];
+
+// ======== INIT ========
+
+window.addEventListener('DOMContentLoaded', () => {
+  buildACETable();
+  buildAdultTable();
+  buildCPSTable();
+  setupQ2();
+  setupProgress();
+  setTodayDate();
+
+  // Load saved email
+  const saved = localStorage.getItem('praticienEmail');
+  if (saved) {
+    document.getElementById('praticienEmail').value = saved;
+    document.getElementById('configPanel').style.display = 'none';
+  }
+});
+
+function setTodayDate() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('datePassation').value = today;
+}
+
+function saveConfig() {
+  const email = document.getElementById('praticienEmail').value.trim();
+  if (email) {
+    localStorage.setItem('praticienEmail', email);
+    document.getElementById('configPanel').style.display = 'none';
+  } else {
+    alert('Veuillez saisir une adresse email valide.');
+  }
+}
+
+// ======== BUILD TABLES ========
+
+function buildACETable() {
+  const tbody = document.getElementById('aceTableBody');
+  let lastBloc = '';
+  aceItems.forEach((item, i) => {
+    if (item.bloc !== lastBloc) {
+      const tr = document.createElement('tr');
+      tr.className = 'ace-bloc-header';
+      tr.innerHTML = `<td colspan="4">${item.bloc}</td>`;
+      tbody.appendChild(tr);
+      lastBloc = item.bloc;
+    }
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight:500;font-size:13px;">${item.cat}</td>
+      <td style="font-size:12.5px;color:#666;">${item.desc}</td>
+      <td>
+        <div class="ace-yes-no">
+          <label class="oui" id="ace_oui_${i}">
+            <input type="radio" name="ace_${i}" value="Oui" onchange="onAceChange(${i}, 'Oui')">
+            Oui
+          </label>
+          <label class="non" id="ace_non_${i}">
+            <input type="radio" name="ace_${i}" value="Non" onchange="onAceChange(${i}, 'Non')">
+            Non
+          </label>
+        </div>
+      </td>
+      <td><input type="text" name="ace_comment_${i}" placeholder="Commentaire..." style="font-size:12px;padding:6px 9px;"></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function buildAdultTable() {
+  const tbody = document.getElementById('adultTableBody');
+  adultItems.forEach((item, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="font-weight:600;color:var(--teal);font-size:12px;white-space:nowrap;">${item.ref}</td>
+      <td>
+        <div style="font-weight:500;font-size:13px;">${item.type}</div>
+        <div style="font-size:12px;color:#777;margin-top:2px;">${item.desc}</div>
+      </td>
+      <td>
+        <div class="ace-yes-no">
+          <label class="oui" id="adult_oui_${i}">
+            <input type="radio" name="adult_${i}" value="Oui" onchange="onAdultChange(${i}, 'Oui')">
+            Oui
+          </label>
+          <label class="non" id="adult_non_${i}">
+            <input type="radio" name="adult_${i}" value="Non" onchange="onAdultChange(${i}, 'Non')">
+            Non
+          </label>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function buildCPSTable() {
+  const tbody = document.getElementById('cpsTableBody');
+  let lastAxe = '';
+  cpsItems.forEach((item, i) => {
+    if (item.axe !== lastAxe) {
+      const badgeMap = { 'COGNITIVE': 'cog', 'ÉMOTIONNELLE': 'emo', 'SOCIALE': 'soc' };
+      const badge = badgeMap[item.axe];
+      const labelMap = { 'COGNITIVE': 'Axe Cognitif', 'ÉMOTIONNELLE': 'Axe Émotionnel', 'SOCIALE': 'Axe Social' };
+      const tr = document.createElement('tr');
+      tr.className = 'likert-section-header';
+      tr.innerHTML = `<td colspan="6"><span class="axe-badge axe-${badge}">${labelMap[item.axe]}</span></td>`;
+      tbody.appendChild(tr);
+      lastAxe = item.axe;
+    }
+    const tr = document.createElement('tr');
+    let radios = '';
+    for (let v = 1; v <= 5; v++) {
+      radios += `<td><input type="radio" name="cps_${i}" value="${v}" onchange="updateCPSScores()"></td>`;
+    }
+    tr.innerHTML = `
+      <td class="item-text"><strong style="font-size:11.5px;color:#888;display:block;margin-bottom:2px;">${item.label}</strong>${item.item}</td>
+      ${radios}
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// ======== INTERACTIONS ========
+
+function setupQ2() {
+  document.querySelectorAll('input[name="q2type"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const show = radio.value !== 'Aucun diagnostic';
+      document.getElementById('q2detail').style.display = show ? 'block' : 'none';
+    });
+  });
+}
+
+function onAceChange(i, val) {
+  document.getElementById(`ace_oui_${i}`).classList.toggle('active', val === 'Oui');
+  document.getElementById(`ace_non_${i}`).classList.toggle('active', val === 'Non');
+  updateACEScore();
+  updateProgress();
+}
+
+function onAdultChange(i, val) {
+  document.getElementById(`adult_oui_${i}`).classList.toggle('active', val === 'Oui');
+  document.getElementById(`adult_non_${i}`).classList.toggle('active', val === 'Non');
+  updateAdultScore();
+  updateProgress();
+}
+
+function updateACEScore() {
+  let score = 0;
+  aceItems.forEach((_, i) => {
+    const checked = document.querySelector(`input[name="ace_${i}"]:checked`);
+    if (checked && checked.value === 'Oui') score++;
+  });
+  document.getElementById('aceScoreDisplay').textContent = `${score} / 13`;
+  return score;
+}
+
+function updateAdultScore() {
+  let score = 0;
+  adultItems.forEach((_, i) => {
+    const checked = document.querySelector(`input[name="adult_${i}"]:checked`);
+    if (checked && checked.value === 'Oui') score++;
+  });
+  document.getElementById('adultScoreDisplay').textContent = `${score} / 21`;
+  return score;
+}
+
+function updateCPSScores() {
+  const axeMap = { 'COGNITIVE': [], 'ÉMOTIONNELLE': [], 'SOCIALE': [] };
+  cpsItems.forEach((item, i) => {
+    const checked = document.querySelector(`input[name="cps_${i}"]:checked`);
+    if (checked) axeMap[item.axe].push(parseInt(checked.value));
+  });
+  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(1) : '—';
+  document.getElementById('cpsCogDisplay').textContent = avg(axeMap['COGNITIVE']) + (axeMap['COGNITIVE'].length ? '/5' : '');
+  document.getElementById('cpsEmoDisplay').textContent = avg(axeMap['ÉMOTIONNELLE']) + (axeMap['ÉMOTIONNELLE'].length ? '/5' : '');
+  document.getElementById('cpsSocDisplay').textContent = avg(axeMap['SOCIALE']) + (axeMap['SOCIALE'].length ? '/5' : '');
+  updateProgress();
+  return axeMap;
+}
+
+// ======== PROGRESS ========
+
+function setupProgress() {
+  document.getElementById('mainForm').addEventListener('change', updateProgress);
+}
+
+function updateProgress() {
+  const total = 3 + aceItems.length + adultItems.length + cpsItems.length;
+  let filled = 0;
+  if (document.querySelector('input[name="q1"]:checked')) filled++;
+  if (document.querySelector('input[name="q2type"]:checked')) filled++;
+  if (document.getElementById('patientId').value.trim()) filled++;
+  aceItems.forEach((_, i) => { if (document.querySelector(`input[name="ace_${i}"]:checked`)) filled++; });
+  adultItems.forEach((_, i) => { if (document.querySelector(`input[name="adult_${i}"]:checked`)) filled++; });
+  cpsItems.forEach((_, i) => { if (document.querySelector(`input[name="cps_${i}"]:checked`)) filled++; });
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById('progressBar').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `Progression : ${pct} %`;
+}
+
+document.addEventListener('input', updateProgress);
+
+// ======== COLLECT DATA ========
+
+function collectData() {
+  const d = {};
+
+  // Identifiant
+  d.patientId = document.getElementById('patientId').value.trim();
+  d.datePassation = document.getElementById('datePassation').value;
+
+  // Section 1
+  const q1 = document.querySelector('input[name="q1"]:checked');
+  d.dureeSymptomes = q1 ? q1.value : 'Non renseigné';
+  const q2 = document.querySelector('input[name="q2type"]:checked');
+  d.diagnostic = q2 ? q2.value : 'Non renseigné';
+  d.diagnosticDetail = document.getElementById('q2text').value;
+  d.gestionDouleur = document.getElementById('q3').value;
+  d.infoImportantes = document.getElementById('infoImportantes').value;
+
+  // EPICES
+  d.epicesScore = document.getElementById('epicesScore').value;
+  d.epicesInterp = document.getElementById('epicesInterp').value;
+
+  // ACE
+  let aceScore = 0;
+  const aceDetails = [];
+  aceItems.forEach((item, i) => {
+    const checked = document.querySelector(`input[name="ace_${i}"]:checked`);
+    const val = checked ? checked.value : 'Non répondu';
+    const comment = document.querySelector(`input[name="ace_comment_${i}"]`).value;
+    if (val === 'Oui') aceScore++;
+    aceDetails.push(`${item.cat} : ${val}${comment ? ' ('+comment+')' : ''}`);
+  });
+  d.aceScore = aceScore;
+  d.aceDetails = aceDetails.join('\n');
+
+  // ADULT
+  let adultScore = 0;
+  const adultDetails = [];
+  adultItems.forEach((item, i) => {
+    const checked = document.querySelector(`input[name="adult_${i}"]:checked`);
+    const val = checked ? checked.value : 'Non répondu';
+    if (val === 'Oui') adultScore++;
+    adultDetails.push(`${item.ref}. ${item.type} : ${val}`);
+  });
+  d.adultScore = adultScore;
+  d.adultDetails = adultDetails.join('\n');
+
+  // CPS
+  const axeMap = { 'COGNITIVE': [], 'ÉMOTIONNELLE': [], 'SOCIALE': [] };
+  const cpsDetails = [];
+  let cpsAlerts = [];
+  cpsItems.forEach((item, i) => {
+    const checked = document.querySelector(`input[name="cps_${i}"]:checked`);
+    const val = checked ? parseInt(checked.value) : null;
+    if (val !== null) axeMap[item.axe].push(val);
+    cpsDetails.push(`${item.label} : ${val !== null ? val+'/5' : 'Non répondu'}`);
+  });
+  const avg = arr => arr.length ? (arr.reduce((a, b) => a + b, 0) / arr.length) : null;
+  const cogAvg = avg(axeMap['COGNITIVE']);
+  const emoAvg = avg(axeMap['ÉMOTIONNELLE']);
+  const socAvg = avg(axeMap['SOCIALE']);
+
+  d.cpsCog = cogAvg !== null ? cogAvg.toFixed(1) : '—';
+  d.cpsEmo = emoAvg !== null ? emoAvg.toFixed(1) : '—';
+  d.cpsSoc = socAvg !== null ? socAvg.toFixed(1) : '—';
+  d.cpsDetails = cpsDetails.join('\n');
+
+  // Alerts CPS
+  const fragile = v => v !== null && v <= 2;
+  const zone = v => v !== null && v > 2 && v <= 3;
+  const ressource = v => v !== null && v > 3;
+  const interp = v => v === null ? '—' : v <= 2 ? '⚠️ Fragilité' : v <= 3 ? '⚡ Zone intermédiaire' : '✅ Ressource';
+  d.cpsCogInterp = interp(cogAvg);
+  d.cpsEmoInterp = interp(emoAvg);
+  d.cpsSocInterp = interp(socAvg);
+
+  // Items faibles CPS
+  let itemsFaibles = [];
+  let totalFaibles = 0;
+  cpsItems.forEach((item, i) => {
+    const checked = document.querySelector(`input[name="cps_${i}"]:checked`);
+    const val = checked ? parseInt(checked.value) : null;
+    if (val !== null && val <= 2) { itemsFaibles.push(item.label); totalFaibles++; }
+  });
+  d.cpsItemsFaibles = itemsFaibles.join(', ') || 'Aucun';
+  d.cpsTotalFaibles = totalFaibles;
+
+  // Orientation suggérée
+  let orientations = [];
+  if (fragile(cogAvg)) orientations.push('TCC axe cognitif (impulsivité ou rigidité), DBT/STAIR modules cognitifs');
+  if (fragile(emoAvg)) orientations.push('DBT module régulation émotionnelle, STAIR/ESTAIR phase 1');
+  if (fragile(socAvg)) orientations.push('Entraînement habiletés sociales, assertivité, modules interpersonnels STAIR');
+  if (totalFaibles >= 4) orientations.push('⚠️ Vulnérabilité globale : évaluation psychologique approfondie recommandée');
+  d.orientations = orientations.length ? orientations.join('\n') : 'Aucune fragilité majeure détectée';
+
+  return d;
+}
+
+// ======== SUBMIT ========
+
+function submitForm() {
+  const patientId = document.getElementById('patientId').value.trim();
+  if (!patientId) {
+    alert('Veuillez renseigner votre identifiant patient.');
+    document.getElementById('patientId').focus();
+    return;
+  }
+
+  const praticienEmail = localStorage.getItem('praticienEmail') || '';
+  if (!praticienEmail) {
+    alert('Erreur de configuration : aucune adresse email praticien renseignée. Contactez votre praticien.');
+    return;
+  }
+
+  const d = collectData();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours...';
+
+  // Format email body
+  const body = `
+========================================
+RÉCAPITULATIF QUESTIONNAIRE DPPC
+========================================
+
+Identifiant patient : ${d.patientId}
+Date de passation   : ${d.datePassation}
+
+----------------------------------------
+1. SYMPTÔMES
+----------------------------------------
+Durée des symptômes : ${d.dureeSymptomes}
+Diagnostic          : ${d.diagnostic}${d.diagnosticDetail ? ' — ' + d.diagnosticDetail : ''}
+Gestion douleur     : ${d.gestionDouleur || 'Non renseigné'}
+Infos importantes   : ${d.infoImportantes || 'Aucune'}
+
+----------------------------------------
+2. SCORE EPICES
+----------------------------------------
+Score               : ${d.epicesScore || 'Non renseigné'}
+Interprétation      : ${d.epicesInterp || 'Non renseignée'}
+
+----------------------------------------
+3. SCORE ACE (adversité précoce)
+----------------------------------------
+Score total         : ${d.aceScore} / 13
+${d.aceScore >= 4 ? '⚠️ Score élevé : vigilance renforcée recommandée' : d.aceScore >= 1 ? '⚡ Score modéré : surveiller impact potentiel' : '✅ Score bas'}
+
+Détail :
+${d.aceDetails}
+
+----------------------------------------
+4. ÉVÉNEMENTS ADULTES
+----------------------------------------
+Événements cochés   : ${d.adultScore} / 21
+
+Détail :
+${d.adultDetails}
+
+----------------------------------------
+5. SCORES CPS (ressources internes)
+----------------------------------------
+Axe Cognitif   : ${d.cpsCog}/5  ${d.cpsCogInterp}
+Axe Émotionnel : ${d.cpsEmo}/5  ${d.cpsEmoInterp}
+Axe Social     : ${d.cpsSoc}/5  ${d.cpsSocInterp}
+
+Items faibles (≤2) : ${d.cpsItemsFaibles}
+Nombre total items faibles : ${d.cpsTotalFaibles}
+
+Détail :
+${d.cpsDetails}
+
+----------------------------------------
+ORIENTATIONS SUGGÉRÉES
+----------------------------------------
+${d.orientations}
+
+========================================
+  `.trim();
+
+  emailjs.init('L9qDBCwwLWsywYrzn'); // ← À remplacer
+
+  emailjs.send('service_nxe1jk1', 'template_5v6a5b9', {
+    to_email: praticienEmail,
+    patient_id: d.patientId,
+    date: d.datePassation,
+    subject: `[DPPC] Questionnaire — Patient ${d.patientId} — ${d.datePassation}`,
+    body: body,
+    ace_score: d.aceScore + ' / 13',
+    cps_cog: d.cpsCog + '/5 ' + d.cpsCogInterp,
+    cps_emo: d.cpsEmo + '/5 ' + d.cpsEmoInterp,
+    cps_soc: d.cpsSoc + '/5 ' + d.cpsSocInterp,
+    orientations: d.orientations,
+  }).then(() => {
+    document.getElementById('mainForm').style.display = 'none';
+    document.querySelector('.intro-box').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.progress-label').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+  }).catch(err => {
+    console.error(err);
+    // Fallback : afficher le récapitulatif pour copie manuelle
+    btn.disabled = false;
+    btn.textContent = 'Envoyer mes réponses';
+    showFallback(body, praticienEmail);
+  });
+}
+
+function showFallback(body, email) {
+  const existing = document.getElementById('fallbackPanel');
+  if (existing) existing.remove();
+  const div = document.createElement('div');
+  div.id = 'fallbackPanel';
+  div.style.cssText = 'background:#fff;border:2px solid var(--rust);border-radius:12px;padding:20px;margin-top:20px;';
+  div.innerHTML = `
+    <p style="color:var(--rust);font-weight:600;margin-bottom:12px;">⚠️ L'envoi automatique n'a pas fonctionné. EmailJS n'est pas encore configuré.</p>
+    <p style="font-size:13px;color:#555;margin-bottom:12px;">Copiez le récapitulatif ci-dessous et envoyez-le manuellement à <strong>${email}</strong> :</p>
+    <textarea readonly style="width:100%;height:300px;font-size:12px;font-family:monospace;border:1px solid #ddd;border-radius:6px;padding:10px;">${body}</textarea>
+    <button onclick="navigator.clipboard.writeText(document.querySelector('#fallbackPanel textarea').value).then(()=>alert('Copié !'))" style="margin-top:10px;background:var(--teal);color:#fff;border:none;border-radius:6px;padding:9px 20px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;">Copier le récapitulatif</button>
+  `;
+  document.querySelector('.submit-wrap').after(div);
+  div.scrollIntoView({ behavior: 'smooth' });
+}
+
+// Radio style
+document.addEventListener('change', e => {
+  if (e.target.type === 'radio') {
+    const group = e.target.closest('.radio-group');
+    if (group) {
+      group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+      e.target.closest('.radio-option')?.classList.add('selected');
+    }
+  }
+});
+
+</script>
+</body>
+</html>
